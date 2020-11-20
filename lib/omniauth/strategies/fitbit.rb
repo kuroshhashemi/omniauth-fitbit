@@ -58,6 +58,10 @@ module OmniAuth
         }
       end
 
+      def callback_url
+        options[:callback_url] || (full_host + script_name + callback_path + query_string)
+      end
+
       def raw_info
         if options[:use_english_measure] == 'true'
           @raw_info ||= MultiJson.load(access_token.request('get', 'https://api.fitbit.com/1/user/-/profile.json', { 'Accept-Language' => 'en_US' }).body)
